@@ -14,45 +14,67 @@ import java.sql.Timestamp;
 @NamedQuery(name="AudtiTrack.findAll", query="SELECT a FROM AudtiTrack a")
 public class AudtiTrack implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int transactionId;
-	private int newValue;
-	private int oldValue;
+	private int transId;
+	private String column;
+	private String comment;
+	private String newValue;
+	private String oldValue;
 	private String operation;
+	private String tableName;
 	private Timestamp transDate;
-	private String updateUser;
+	private String transUser;
 
 	public AudtiTrack() {
 	}
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="TRANSACTION_ID")
-	public int getTransactionId() {
-		return this.transactionId;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="TRANS_ID")
+	public int getTransId() {
+		return this.transId;
 	}
 
-	public void setTransactionId(int transactionId) {
-		this.transactionId = transactionId;
+	public void setTransId(int transId) {
+		this.transId = transId;
+	}
+
+
+	@Column(name="\"Column\"")
+	public String getColumn() {
+		return this.column;
+	}
+
+	public void setColumn(String column) {
+		this.column = column;
+	}
+
+
+	public String getComment() {
+		return this.comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 
 	@Column(name="NEW_VALUE")
-	public int getNewValue() {
+	public String getNewValue() {
 		return this.newValue;
 	}
 
-	public void setNewValue(int newValue) {
+	public void setNewValue(String newValue) {
 		this.newValue = newValue;
 	}
 
 
 	@Column(name="OLD_VALUE")
-	public int getOldValue() {
+	public String getOldValue() {
 		return this.oldValue;
 	}
 
-	public void setOldValue(int oldValue) {
+	public void setOldValue(String oldValue) {
 		this.oldValue = oldValue;
 	}
 
@@ -66,6 +88,16 @@ public class AudtiTrack implements Serializable {
 	}
 
 
+	@Column(name="TABLE_NAME")
+	public String getTableName() {
+		return this.tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+
+
 	@Column(name="TRANS_DATE")
 	public Timestamp getTransDate() {
 		return this.transDate;
@@ -76,13 +108,13 @@ public class AudtiTrack implements Serializable {
 	}
 
 
-	@Column(name="UPDATE_USER")
-	public String getUpdateUser() {
-		return this.updateUser;
+	@Column(name="TRANS_USER")
+	public String getTransUser() {
+		return this.transUser;
 	}
 
-	public void setUpdateUser(String updateUser) {
-		this.updateUser = updateUser;
+	public void setTransUser(String transUser) {
+		this.transUser = transUser;
 	}
 
 }

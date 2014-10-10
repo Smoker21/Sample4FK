@@ -4,20 +4,28 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * The primary key class for the ASSETS_USER database table.
+ * The primary key class for the ASSETS_HISTORY database table.
  * 
  */
 @Embeddable
-public class AssetsUserPK implements Serializable {
+public class AssetsHistoryPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
+	private long historyId;
 	private long assetId;
-	private long userId;
 
-	public AssetsUserPK() {
+	public AssetsHistoryPK() {
 	}
 
-	@Column(name="ASSET_ID", insertable=false, updatable=false)
+	@Column(name="HISTORY_ID")
+	public long getHistoryId() {
+		return this.historyId;
+	}
+	public void setHistoryId(long historyId) {
+		this.historyId = historyId;
+	}
+
+	@Column(name="ASSET_ID")
 	public long getAssetId() {
 		return this.assetId;
 	}
@@ -25,32 +33,24 @@ public class AssetsUserPK implements Serializable {
 		this.assetId = assetId;
 	}
 
-	@Column(name="USER_ID", insertable=false, updatable=false)
-	public long getUserId() {
-		return this.userId;
-	}
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
-
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
 		}
-		if (!(other instanceof AssetsUserPK)) {
+		if (!(other instanceof AssetsHistoryPK)) {
 			return false;
 		}
-		AssetsUserPK castOther = (AssetsUserPK)other;
+		AssetsHistoryPK castOther = (AssetsHistoryPK)other;
 		return 
-			(this.assetId == castOther.assetId)
-			&& (this.userId == castOther.userId);
+			(this.historyId == castOther.historyId)
+			&& (this.assetId == castOther.assetId);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
+		hash = hash * prime + ((int) (this.historyId ^ (this.historyId >>> 32)));
 		hash = hash * prime + ((int) (this.assetId ^ (this.assetId >>> 32)));
-		hash = hash * prime + ((int) (this.userId ^ (this.userId >>> 32)));
 		
 		return hash;
 	}

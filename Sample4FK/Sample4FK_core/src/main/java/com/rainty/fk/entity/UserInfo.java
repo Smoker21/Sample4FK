@@ -1,30 +1,41 @@
 package com.rainty.fk.entity;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.eclipse.persistence.annotations.UuidGenerator;
 
 /**
  * The persistent class for the USER_INFO database table.
  * 
  */
 @Entity
-@Table(name="USER_INFO")
-@NamedQuery(name="UserInfo.findAll", query="SELECT u FROM UserInfo u")
+@Table(name = "USER_INFO")
+@NamedQuery(name = "UserInfo.findAll", query = "SELECT u FROM UserInfo u")
 public class UserInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String userAcnt;
+	private Long userId;
 	private String location;
 	private Date onboardDt;
 	private String secretaryAcnt;
 	private String supervisor;
 	private Timestamp updateDt;
 	private String updateUser;
+	private String userAcnt;
 	private String userDept;
 	private String userName;
 	private String userOrg;
@@ -33,17 +44,17 @@ public class UserInfo implements Serializable {
 	public UserInfo() {
 	}
 
-
 	@Id
-	@Column(name="USER_ACNT")
-	public String getUserAcnt() {
-		return this.userAcnt;
+	@SequenceGenerator(sequenceName = "USER_SEQ", name = "USER_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
+	@Column(name = "USER_ID")
+	public Long getUserId() {
+		return this.userId;
 	}
 
-	public void setUserAcnt(String userAcnt) {
-		this.userAcnt = userAcnt;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
-
 
 	public String getLocation() {
 		return this.location;
@@ -53,9 +64,8 @@ public class UserInfo implements Serializable {
 		this.location = location;
 	}
 
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="ONBOARD_DT")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "ONBOARD_DT")
 	public Date getOnboardDt() {
 		return this.onboardDt;
 	}
@@ -64,8 +74,7 @@ public class UserInfo implements Serializable {
 		this.onboardDt = onboardDt;
 	}
 
-
-	@Column(name="SECRETARY_ACNT")
+	@Column(name = "SECRETARY_ACNT")
 	public String getSecretaryAcnt() {
 		return this.secretaryAcnt;
 	}
@@ -73,7 +82,6 @@ public class UserInfo implements Serializable {
 	public void setSecretaryAcnt(String secretaryAcnt) {
 		this.secretaryAcnt = secretaryAcnt;
 	}
-
 
 	public String getSupervisor() {
 		return this.supervisor;
@@ -83,8 +91,7 @@ public class UserInfo implements Serializable {
 		this.supervisor = supervisor;
 	}
 
-
-	@Column(name="UPDATE_DT")
+	@Column(name = "UPDATE_DT")
 	public Timestamp getUpdateDt() {
 		return this.updateDt;
 	}
@@ -93,8 +100,7 @@ public class UserInfo implements Serializable {
 		this.updateDt = updateDt;
 	}
 
-
-	@Column(name="UPDATE_USER")
+	@Column(name = "UPDATE_USER")
 	public String getUpdateUser() {
 		return this.updateUser;
 	}
@@ -103,8 +109,16 @@ public class UserInfo implements Serializable {
 		this.updateUser = updateUser;
 	}
 
+	@Column(name = "USER_ACNT")
+	public String getUserAcnt() {
+		return this.userAcnt;
+	}
 
-	@Column(name="USER_DEPT")
+	public void setUserAcnt(String userAcnt) {
+		this.userAcnt = userAcnt;
+	}
+
+	@Column(name = "USER_DEPT")
 	public String getUserDept() {
 		return this.userDept;
 	}
@@ -113,8 +127,7 @@ public class UserInfo implements Serializable {
 		this.userDept = userDept;
 	}
 
-
-	@Column(name="USER_NAME")
+	@Column(name = "USER_NAME")
 	public String getUserName() {
 		return this.userName;
 	}
@@ -123,8 +136,7 @@ public class UserInfo implements Serializable {
 		this.userName = userName;
 	}
 
-
-	@Column(name="USER_ORG")
+	@Column(name = "USER_ORG")
 	public String getUserOrg() {
 		return this.userOrg;
 	}
@@ -133,9 +145,8 @@ public class UserInfo implements Serializable {
 		this.userOrg = userOrg;
 	}
 
-
-	//bi-directional many-to-one association to AssetsUser
-	@OneToMany
+	// bi-directional many-to-one association to AssetsUser
+	@OneToMany(mappedBy = "userInfo")
 	public List<AssetsUser> getAssetsUsers() {
 		return this.assetsUsers;
 	}
@@ -146,16 +157,17 @@ public class UserInfo implements Serializable {
 
 	public AssetsUser addAssetsUser(AssetsUser assetsUser) {
 		getAssetsUsers().add(assetsUser);
+		assetsUser.setUserInfo(this);
+
 		return assetsUser;
 	}
 
-	
-	
 	public AssetsUser removeAssetsUser(AssetsUser assetsUser) {
 		getAssetsUsers().remove(assetsUser);
+		assetsUser.setUserInfo(null);
+
 		return assetsUser;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -163,9 +175,9 @@ public class UserInfo implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((userAcnt == null) ? 0 : userAcnt.hashCode());
+		result = prime * result + (int) (userId ^ (userId >>> 32));
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -181,20 +193,104 @@ public class UserInfo implements Serializable {
 				return false;
 		} else if (!userAcnt.equals(other.userAcnt))
 			return false;
+		if (userId != other.userId)
+			return false;
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
-		return "UserInfo [userAcnt=" + userAcnt + ", location=" + location
+		return "UserInfo [userId=" + userId + ", location=" + location
 				+ ", onboardDt=" + onboardDt + ", secretaryAcnt="
 				+ secretaryAcnt + ", supervisor=" + supervisor + ", updateDt="
-				+ updateDt + ", updateUser=" + updateUser + ", userDept="
-				+ userDept + ", userName=" + userName + ", userOrg=" + userOrg
-				+ ", assetsUsers=" + assetsUsers + "]";
+				+ updateDt + ", updateUser=" + updateUser + ", userAcnt="
+				+ userAcnt + ", userDept=" + userDept + ", userName="
+				+ userName + ", userOrg=" + userOrg + ", assetsUsers="
+				+ assetsUsers + "]";
 	}
 
-	
-	
+	public static class Builder {
+		private String location;
+		private Date onboardDt;
+		private String secretaryAcnt;
+		private String supervisor;
+		private Timestamp updateDt;
+		private String updateUser;
+		private String userAcnt;
+		private String userDept;
+		private String userName;
+		private String userOrg;
+		private List<AssetsUser> assetsUsers;
+
+		public Builder location(String location) {
+			this.location = location;
+			return this;
+		}
+
+		public Builder onboardDt(Date onboardDt) {
+			this.onboardDt = onboardDt;
+			return this;
+		}
+
+		public Builder secretaryAcnt(String secretaryAcnt) {
+			this.secretaryAcnt = secretaryAcnt;
+			return this;
+		}
+
+		public Builder supervisor(String supervisor) {
+			this.supervisor = supervisor;
+			return this;
+		}
+
+		public Builder updateDt(Timestamp updateDt) {
+			this.updateDt = updateDt;
+			return this;
+		}
+
+		public Builder updateUser(String updateUser) {
+			this.updateUser = updateUser;
+			return this;
+		}
+
+		public Builder userAcnt(String userAcnt) {
+			this.userAcnt = userAcnt;
+			return this;
+		}
+
+		public Builder userDept(String userDept) {
+			this.userDept = userDept;
+			return this;
+		}
+
+		public Builder userName(String userName) {
+			this.userName = userName;
+			return this;
+		}
+
+		public Builder userOrg(String userOrg) {
+			this.userOrg = userOrg;
+			return this;
+		}
+
+		public Builder assetsUsers(List<AssetsUser> assetsUsers) {
+			this.assetsUsers = assetsUsers;
+			return this;
+		}
+
+		public UserInfo build() {
+			UserInfo userInfo = new UserInfo();
+			userInfo.location = location;
+			userInfo.onboardDt = onboardDt;
+			userInfo.secretaryAcnt = secretaryAcnt;
+			userInfo.supervisor = supervisor;
+			userInfo.updateDt = updateDt;
+			userInfo.updateUser = updateUser;
+			userInfo.userAcnt = userAcnt;
+			userInfo.userDept = userDept;
+			userInfo.userName = userName;
+			userInfo.userOrg = userOrg;
+			userInfo.assetsUsers = assetsUsers;
+			return userInfo;
+		}
+	}
 }

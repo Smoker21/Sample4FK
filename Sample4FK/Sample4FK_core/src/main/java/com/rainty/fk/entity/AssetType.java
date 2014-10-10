@@ -22,7 +22,7 @@ public class AssetType implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ASSET_TYPE")
 	public String getAssetType() {
 		return this.assetType;

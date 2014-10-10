@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.rainty.fk.entity.UserInfo;
 
 @Repository
-public interface UserInfoRepository extends CrudRepository<UserInfo,String>{
-	
+public interface UserInfoRepository extends CrudRepository<UserInfo,Long>{
+	UserInfo findByUserAcnt(String userAcnt);
 }

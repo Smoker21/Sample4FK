@@ -2,6 +2,8 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="Sample4FK_core" transaction-type="RESOURCE_LOCAL">
 		<class>com.rainty.fk.entity.Asset</class>
+		<class>com.rainty.fk.entity.AssetsHistory</class>
+		<class>com.rainty.fk.entity.AssetsHistoryPK</class>
 		<class>com.rainty.fk.entity.AssetsUser</class>
 		<class>com.rainty.fk.entity.AssetsUserPK</class>
 		<class>com.rainty.fk.entity.AssetType</class>
@@ -14,6 +16,13 @@
 			<property name="eclipselink.jdbc.batch-writing" value="Buffered"/>
 			<property name="eclipselink.cache.type.default" value="NONE"/>
 			<property name="eclipselink.weaving" value="static"/>
+			<property name="eclipselink.jdbc.exclusive-connection.mode" value="Transactional"/>
+			<!-- 
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
+			<property name="javax.persistence.jdbc.user" value="pcadm"/>
+			<property name="javax.persistence.jdbc.password" value="pcadm"/>
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+			 -->
 		</properties>
 	</persistence-unit>
 </persistence>

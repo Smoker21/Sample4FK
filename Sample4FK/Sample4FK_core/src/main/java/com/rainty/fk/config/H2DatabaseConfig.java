@@ -25,7 +25,7 @@ public class H2DatabaseConfig {
 
 	/**
 	 * A sample datasource for pooled embedded H2 Database. The datasource is
-	 * for demo purpose.
+	 * for test and demo purpose only.
 	 * 
 	 * @return Datasource
 	 */
@@ -42,7 +42,6 @@ public class H2DatabaseConfig {
 
 		EclipseLinkJpaVendorAdapter vendorAdapter = new EclipseLinkJpaVendorAdapter();
 		vendorAdapter.setShowSql(true);
-		vendorAdapter.setGenerateDdl(true);
 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
