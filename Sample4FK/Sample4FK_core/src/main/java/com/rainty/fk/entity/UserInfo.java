@@ -1,7 +1,9 @@
 package com.rainty.fk.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -133,7 +135,7 @@ public class UserInfo implements Serializable {
 
 
 	//bi-directional many-to-one association to AssetsUser
-	@OneToMany(mappedBy="userInfo")
+	@OneToMany
 	public List<AssetsUser> getAssetsUsers() {
 		return this.assetsUsers;
 	}
@@ -144,16 +146,55 @@ public class UserInfo implements Serializable {
 
 	public AssetsUser addAssetsUser(AssetsUser assetsUser) {
 		getAssetsUsers().add(assetsUser);
-		assetsUser.setUserInfo(this);
-
 		return assetsUser;
 	}
 
+	
+	
 	public AssetsUser removeAssetsUser(AssetsUser assetsUser) {
 		getAssetsUsers().remove(assetsUser);
-		assetsUser.setUserInfo(null);
-
 		return assetsUser;
 	}
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((userAcnt == null) ? 0 : userAcnt.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserInfo other = (UserInfo) obj;
+		if (userAcnt == null) {
+			if (other.userAcnt != null)
+				return false;
+		} else if (!userAcnt.equals(other.userAcnt))
+			return false;
+		return true;
+	}
+
+
+	@Override
+	public String toString() {
+		return "UserInfo [userAcnt=" + userAcnt + ", location=" + location
+				+ ", onboardDt=" + onboardDt + ", secretaryAcnt="
+				+ secretaryAcnt + ", supervisor=" + supervisor + ", updateDt="
+				+ updateDt + ", updateUser=" + updateUser + ", userDept="
+				+ userDept + ", userName=" + userName + ", userOrg=" + userOrg
+				+ ", assetsUsers=" + assetsUsers + "]";
+	}
+
+	
+	
 }

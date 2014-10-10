@@ -17,7 +17,7 @@ public class AssetsUserPK implements Serializable {
 	public AssetsUserPK() {
 	}
 
-	@Column(name="ASSET_ID", insertable=false, updatable=false)
+	@Column(name="ASSET_ID", insertable=true, updatable=true)
 	public String getAssetId() {
 		return this.assetId;
 	}
@@ -25,7 +25,7 @@ public class AssetsUserPK implements Serializable {
 		this.assetId = assetId;
 	}
 
-	@Column(name="USER_ACNT", insertable=false, updatable=false)
+	@Column(name="USER_ACNT", insertable=true, updatable=true)
 	public String getUserAcnt() {
 		return this.userAcnt;
 	}

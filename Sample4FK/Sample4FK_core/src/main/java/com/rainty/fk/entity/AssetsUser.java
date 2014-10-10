@@ -75,27 +75,4 @@ public class AssetsUser implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Asset
-	@ManyToOne
-	@JoinColumn(name="ASSET_ID")
-	public Asset getAsset() {
-		return this.asset;
-	}
-
-	public void setAsset(Asset asset) {
-		this.asset = asset;
-	}
-
-
-	//bi-directional many-to-one association to UserInfo
-	@ManyToOne
-	@JoinColumn(name="USER_ACNT")
-	public UserInfo getUserInfo() {
-		return this.userInfo;
-	}
-
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
-	}
-
 }

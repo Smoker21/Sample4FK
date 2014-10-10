@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -39,12 +40,12 @@ public class H2DatabaseConfig {
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 
-		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		EclipseLinkJpaVendorAdapter vendorAdapter = new EclipseLinkJpaVendorAdapter();
+		vendorAdapter.setShowSql(true);
 		vendorAdapter.setGenerateDdl(true);
 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("com.acme.domain");
 		factory.setDataSource(h2DataSource());
 		factory.afterPropertiesSet();
 		return factory.getObject();

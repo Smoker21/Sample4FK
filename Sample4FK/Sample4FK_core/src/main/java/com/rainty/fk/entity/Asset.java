@@ -111,7 +111,7 @@ public class Asset implements Serializable {
 
 
 	//bi-directional many-to-one association to AssetsUser
-	@OneToMany(mappedBy="asset")
+	@OneToMany()
 	public List<AssetsUser> getAssetsUsers() {
 		return this.assetsUsers;
 	}
@@ -122,15 +122,11 @@ public class Asset implements Serializable {
 
 	public AssetsUser addAssetsUser(AssetsUser assetsUser) {
 		getAssetsUsers().add(assetsUser);
-		assetsUser.setAsset(this);
-
 		return assetsUser;
 	}
 
 	public AssetsUser removeAssetsUser(AssetsUser assetsUser) {
 		getAssetsUsers().remove(assetsUser);
-		assetsUser.setAsset(null);
-
 		return assetsUser;
 	}
 

@@ -3,9 +3,9 @@ package com.rainty.fk.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.rainty.fk.entity.UserInfo;
+import com.rainty.fk.entity.Asset;
 
 @Repository
-public interface UserInfoRepository extends CrudRepository<UserInfo,String>{
-	
+public interface AssetRepository extends CrudRepository<Asset,Long>{
+
 }
