@@ -19,8 +19,6 @@ public class AssetsUser implements Serializable {
 	private Timestamp updateDt;
 	private String updateUser;
 	private String userType;
-	private Asset asset;
-	private UserInfo userInfo;
 
 	public AssetsUser() {
 	}
@@ -72,30 +70,6 @@ public class AssetsUser implements Serializable {
 
 	public void setUserType(String userType) {
 		this.userType = userType;
-	}
-
-
-	//bi-directional many-to-one association to Asset
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="ASSET_ID")
-	public Asset getAsset() {
-		return this.asset;
-	}
-
-	public void setAsset(Asset asset) {
-		this.asset = asset;
-	}
-
-
-	//bi-directional many-to-one association to UserInfo
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="USER_ID")
-	public UserInfo getUserInfo() {
-		return this.userInfo;
-	}
-
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
 	}
 
 }

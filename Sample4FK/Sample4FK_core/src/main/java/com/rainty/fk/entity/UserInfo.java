@@ -16,6 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.eclipse.persistence.annotations.UuidGenerator;
 
@@ -39,7 +40,7 @@ public class UserInfo implements Serializable {
 	private String userDept;
 	private String userName;
 	private String userOrg;
-	private List<AssetsUser> assetsUsers;
+	private List<Asset> userAssets;
 
 	public UserInfo() {
 	}
@@ -145,28 +146,13 @@ public class UserInfo implements Serializable {
 		this.userOrg = userOrg;
 	}
 
-	// bi-directional many-to-one association to AssetsUser
-	@OneToMany(mappedBy = "userInfo")
-	public List<AssetsUser> getAssetsUsers() {
-		return this.assetsUsers;
+	@Transient
+	public List<Asset> getUserAssets() {
+		return this.userAssets; 
 	}
-
-	public void setAssetsUsers(List<AssetsUser> assetsUsers) {
-		this.assetsUsers = assetsUsers;
-	}
-
-	public AssetsUser addAssetsUser(AssetsUser assetsUser) {
-		getAssetsUsers().add(assetsUser);
-		assetsUser.setUserInfo(this);
-
-		return assetsUser;
-	}
-
-	public AssetsUser removeAssetsUser(AssetsUser assetsUser) {
-		getAssetsUsers().remove(assetsUser);
-		assetsUser.setUserInfo(null);
-
-		return assetsUser;
+	
+	public void setUserAssets(List<Asset> userAssets) {
+		this.userAssets = userAssets;
 	}
 
 	@Override
@@ -206,7 +192,7 @@ public class UserInfo implements Serializable {
 				+ updateDt + ", updateUser=" + updateUser + ", userAcnt="
 				+ userAcnt + ", userDept=" + userDept + ", userName="
 				+ userName + ", userOrg=" + userOrg + ", assetsUsers="
-				+ assetsUsers + "]";
+				+ userAssets + "]";
 	}
 
 	public static class Builder {
@@ -220,7 +206,7 @@ public class UserInfo implements Serializable {
 		private String userDept;
 		private String userName;
 		private String userOrg;
-		private List<AssetsUser> assetsUsers;
+		private List<Asset> userAssets;
 
 		public Builder location(String location) {
 			this.location = location;
@@ -272,8 +258,8 @@ public class UserInfo implements Serializable {
 			return this;
 		}
 
-		public Builder assetsUsers(List<AssetsUser> assetsUsers) {
-			this.assetsUsers = assetsUsers;
+		public Builder assetsUsers(List<Asset> userAssets) {
+			this.userAssets = userAssets;
 			return this;
 		}
 
@@ -289,7 +275,7 @@ public class UserInfo implements Serializable {
 			userInfo.userDept = userDept;
 			userInfo.userName = userName;
 			userInfo.userOrg = userOrg;
-			userInfo.assetsUsers = assetsUsers;
+			userInfo.userAssets = userAssets;
 			return userInfo;
 		}
 	}

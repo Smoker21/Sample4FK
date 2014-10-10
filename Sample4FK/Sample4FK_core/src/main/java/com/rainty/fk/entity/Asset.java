@@ -92,29 +92,6 @@ public class Asset implements Serializable {
 		this.updateUser = updateUser;
 	}
 
-	//bi-directional many-to-one association to AssetsUser
-	@OneToMany(mappedBy = "asset")
-	public List<AssetsUser> getAssetsUsers() {
-		return this.assetsUsers;
-	}
-
-	public void setAssetsUsers(List<AssetsUser> assetsUsers) {
-		this.assetsUsers = assetsUsers;
-	}
-
-	public AssetsUser addAssetsUser(AssetsUser assetsUser) {
-		getAssetsUsers().add(assetsUser);
-		assetsUser.setAsset(this);
-
-		return assetsUser;
-	}
-
-	public AssetsUser removeAssetsUser(AssetsUser assetsUser) {
-		getAssetsUsers().remove(assetsUser);
-		assetsUser.setAsset(null);
-
-		return assetsUser;
-	}
 
 	@Override
 	public int hashCode() {
