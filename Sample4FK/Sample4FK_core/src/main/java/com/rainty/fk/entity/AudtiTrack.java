@@ -40,16 +40,6 @@ public class AudtiTrack implements Serializable {
 	}
 
 
-	@Column(name="\"Column\"")
-	public String getColumn() {
-		return this.column;
-	}
-
-	public void setColumn(String column) {
-		this.column = column;
-	}
-
-
 	public String getComment() {
 		return this.comment;
 	}

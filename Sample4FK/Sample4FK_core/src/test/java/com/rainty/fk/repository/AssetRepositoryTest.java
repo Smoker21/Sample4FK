@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.rainty.fk.config.ApplicationConfig;
 import com.rainty.fk.entity.Asset;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfig.class)
 public class AssetRepositoryTest {

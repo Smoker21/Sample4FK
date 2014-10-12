@@ -1,11 +1,18 @@
 package com.rainty.fk.entity;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
 import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * The persistent class for the ASSETS database table.
@@ -15,7 +22,10 @@ import java.util.List;
 @Table(name = "ASSETS")
 @NamedQuery(name = "Asset.findAll", query = "SELECT a FROM Asset a")
 public class Asset implements Serializable {
-	private static final Long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1709230324579283520L;
 	private Long assetId;
 	private String assetName;
 	private String assetType;
@@ -23,7 +33,7 @@ public class Asset implements Serializable {
 	private String location;
 	private Timestamp updateDt;
 	private String updateUser;
-	private List<AssetsUser> assetsUsers;
+	private List<AssetsUser> assetUsers;
 
 	public Asset() {
 	}
@@ -92,6 +102,15 @@ public class Asset implements Serializable {
 		this.updateUser = updateUser;
 	}
 
+	@Transient
+	public List<AssetsUser> getAssetUsers() {
+		return this.assetUsers;
+	}
+	
+	public void setAssetUsers(List<AssetsUser> users) {
+		this.assetUsers = users; 
+	}
+	
 
 	@Override
 	public int hashCode() {
@@ -132,7 +151,7 @@ public class Asset implements Serializable {
 		private String location;
 		private Timestamp updateDt;
 		private String updateUser;
-		private List<AssetsUser> assetsUsers;
+		private List<AssetsUser> assetUsers;
 
 		public Builder assetName(String assetName) {
 			this.assetName = assetName;
@@ -164,8 +183,8 @@ public class Asset implements Serializable {
 			return this;
 		}
 
-		public Builder assetsUsers(List<AssetsUser> assetsUsers) {
-			this.assetsUsers = assetsUsers;
+		public Builder assetsUsers(List<AssetsUser> assetUsers) {
+			this.assetUsers = assetUsers;
 			return this;
 		}
 
@@ -181,6 +200,6 @@ public class Asset implements Serializable {
 		this.location = builder.location;
 		this.updateDt = builder.updateDt;
 		this.updateUser = builder.updateUser;
-		this.assetsUsers = builder.assetsUsers;
+		this.assetUsers = builder.assetUsers;
 	}
 }

@@ -2,12 +2,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.raintySoft</groupId>
+		<groupId>com.rainSoft</groupId>
 		<artifactId>Sample4FK</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>Sample4FK_core</artifactId>
 	<dependencies>
+		<dependency>
+			<groupId>com.rainSoft</groupId>
+			<artifactId>Sample4FK_utility</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
@@ -15,7 +19,6 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-oracle</artifactId>
-			<version>1.0.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>

@@ -1,7 +1,9 @@
 package com.rainty.fk.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 
 
@@ -14,8 +16,10 @@ import java.sql.Timestamp;
 @NamedQuery(name="AssetsHistory.findAll", query="SELECT a FROM AssetsHistory a")
 public class AssetsHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private AssetsHistoryPK id;
+	private Long historyId; 
+	private Long assetId; 
 	private String assetName;
+	private String assetType; 
 	private String description;
 	private String location;
 	private Timestamp updateDt;
@@ -24,14 +28,48 @@ public class AssetsHistory implements Serializable {
 	public AssetsHistory() {
 	}
 
-
-	@EmbeddedId
-	public AssetsHistoryPK getId() {
-		return this.id;
+	
+	public AssetsHistory(Asset asset) {
+		this.assetId = asset.getAssetId();
+		this.assetName = asset.getAssetName(); 
+		this.description = asset.getDescription(); 
+		this.location = asset.getLocation(); 
+		this.updateDt = asset.getUpdateDt(); 
+		this.updateUser = asset.getUpdateUser();
 	}
 
-	public void setId(AssetsHistoryPK id) {
-		this.id = id;
+	@Id
+	@Column(name="HISTORY_ID")
+	@SequenceGenerator(name="HISTORY_SEQ",allocationSize=1,sequenceName="HISTORY_SEQ")
+	@GeneratedValue(generator="HISTORY_SEQ")
+	public Long getHistoryId() {
+		return this.historyId;
+	}
+
+	public void setHistoryId(Long historyId) {
+		this.historyId = historyId;
+	}
+
+		
+	@Column(name="ASSET_ID")
+	public Long getAssetId() {
+		return this.assetId;
+	}
+	
+	
+	public void setAssetId(Long assetId) {
+		this.assetId = assetId; 
+	}
+	
+	
+	@Column(name="ASSET_TYPE",length=40)
+	public String getAssetType() {
+		return assetType;
+	}
+
+
+	public void setAssetType(String assetType) {
+		this.assetType = assetType;
 	}
 
 
@@ -82,4 +120,13 @@ public class AssetsHistory implements Serializable {
 		this.updateUser = updateUser;
 	}
 
+
+	@Override
+	public String toString() {
+		return "AssetsHistory [historyId=" + historyId + ", assetId=" + assetId + ", assetName=" + assetName + ", description="
+				+ description + ", location=" + location + ", updateDt=" + updateDt + ", updateUser=" + updateUser + "]";
+	}
+
+	
+	
 }

@@ -18,7 +18,7 @@ public class AssetsUser implements Serializable {
 	private String active;
 	private Timestamp updateDt;
 	private String updateUser;
-	private String userType;
+	private AssetOwnerType userType;
 
 	public AssetsUser() {
 	}
@@ -64,12 +64,17 @@ public class AssetsUser implements Serializable {
 
 
 	@Column(name="USER_TYPE")
-	public String getUserType() {
+	public AssetOwnerType getUserType() {
 		return this.userType;
 	}
 
-	public void setUserType(String userType) {
+	public void setUserType(AssetOwnerType userType) {
 		this.userType = userType;
+	}
+	
+	
+	public void setUserType(String userType) {
+		this.setUserType(AssetOwnerType.valueOf(userType));
 	}
 
 }
