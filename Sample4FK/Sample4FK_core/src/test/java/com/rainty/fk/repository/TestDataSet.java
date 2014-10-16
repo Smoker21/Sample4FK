@@ -7,8 +7,8 @@ import java.util.List;
 import com.rainty.fk.entity.Asset;
 import com.rainty.fk.entity.AssetOwnerType;
 import com.rainty.fk.entity.AssetsHistory;
-import com.rainty.fk.entity.AssetsUser;
-import com.rainty.fk.entity.AssetsUserPK;
+import com.rainty.fk.entity.AssetUser;
+import com.rainty.fk.entity.AssetUserPK;
 
 public class TestDataSet {
 	public static final List<Asset> getAssets() {
@@ -32,22 +32,22 @@ public class TestDataSet {
 		return assetsHistory;
 	}
 
-	public static final List<AssetsUser> getAssetsUser() {
-		final List<AssetsUser> assetUsers = new ArrayList<AssetsUser>();
-		final AssetsUserPK k1 = new AssetsUserPK();
+	public static final List<AssetUser> getAssetsUser() {
+		final List<AssetUser> assetUsers = new ArrayList<AssetUser>();
+		final AssetUserPK k1 = new AssetUserPK();
 		k1.setUserId(1L);
 		k1.setAssetId(1L);
-		final AssetsUser u1 = new AssetsUser();
+		final AssetUser u1 = new AssetUser();
 		u1.setId(k1);
 		u1.setUpdateDt(new Timestamp(System.nanoTime()));
 		u1.setUpdateUser("TEST");
 		u1.setActive("A");
 		u1.setUserType(AssetOwnerType.OWNER);
 
-		final AssetsUserPK k2 = new AssetsUserPK();
+		final AssetUserPK k2 = new AssetUserPK();
 		k2.setUserId(1L);
 		k2.setAssetId(2L);
-		final AssetsUser u2 = new AssetsUser();
+		final AssetUser u2 = new AssetUser();
 		u2.setId(k2);
 		u2.setUpdateDt(new Timestamp(System.nanoTime()));
 		u2.setUpdateUser("TEST");

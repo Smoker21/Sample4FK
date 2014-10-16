@@ -33,7 +33,7 @@ public class Asset implements Serializable {
 	private String location;
 	private Timestamp updateDt;
 	private String updateUser;
-	private List<AssetsUser> assetUsers;
+	private List<AssetUser> assetUsers;
 
 	public Asset() {
 	}
@@ -103,11 +103,11 @@ public class Asset implements Serializable {
 	}
 
 	@Transient
-	public List<AssetsUser> getAssetUsers() {
+	public List<AssetUser> getAssetUsers() {
 		return this.assetUsers;
 	}
 	
-	public void setAssetUsers(List<AssetsUser> users) {
+	public void setAssetUsers(List<AssetUser> users) {
 		this.assetUsers = users; 
 	}
 	
@@ -151,7 +151,7 @@ public class Asset implements Serializable {
 		private String location;
 		private Timestamp updateDt;
 		private String updateUser;
-		private List<AssetsUser> assetUsers;
+		private List<AssetUser> assetUsers;
 
 		public Builder assetName(String assetName) {
 			this.assetName = assetName;
@@ -183,7 +183,7 @@ public class Asset implements Serializable {
 			return this;
 		}
 
-		public Builder assetsUsers(List<AssetsUser> assetUsers) {
+		public Builder assetsUsers(List<AssetUser> assetUsers) {
 			this.assetUsers = assetUsers;
 			return this;
 		}

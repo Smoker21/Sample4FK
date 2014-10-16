@@ -8,13 +8,13 @@ import javax.persistence.*;
  * 
  */
 @Embeddable
-public class AssetsUserPK implements Serializable {
+public class AssetUserPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 	private long assetId;
 	private long userId;
 
-	public AssetsUserPK() {
+	public AssetUserPK() {
 	}
 
 	@Column(name="ASSET_ID", insertable=true, updatable=true)
@@ -37,10 +37,10 @@ public class AssetsUserPK implements Serializable {
 		if (this == other) {
 			return true;
 		}
-		if (!(other instanceof AssetsUserPK)) {
+		if (!(other instanceof AssetUserPK)) {
 			return false;
 		}
-		AssetsUserPK castOther = (AssetsUserPK)other;
+		AssetUserPK castOther = (AssetUserPK)other;
 		return 
 			(this.assetId == castOther.assetId)
 			&& (this.userId == castOther.userId);

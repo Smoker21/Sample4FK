@@ -19,8 +19,8 @@ import org.springframework.util.Assert;
 import com.rainty.fk.entity.Asset;
 import com.rainty.fk.entity.AssetOwnerType;
 import com.rainty.fk.entity.AssetsHistory;
-import com.rainty.fk.entity.AssetsUser;
-import com.rainty.fk.entity.AssetsUserPK;
+import com.rainty.fk.entity.AssetUser;
+import com.rainty.fk.entity.AssetUserPK;
 import com.rainty.fk.entity.UserInfo;
 import com.rainty.fk.repository.AssetRepository;
 import com.rainty.fk.repository.AssetUserRepository;
@@ -67,10 +67,10 @@ public class AssetServiceImpl implements AssetService {
 		// save asset and get jpa managed object
 		final Asset _asset = this.save(asset, updater);
 		// create many-to-many reference table key
-		final ArrayList<AssetsUser> assetUsers = new ArrayList<AssetsUser>();
+		final ArrayList<AssetUser> assetUsers = new ArrayList<AssetUser>();
 		for (final UserInfo u : users) {
-			final AssetsUser _assetUser = new AssetsUser();
-			final AssetsUserPK _pk = new AssetsUserPK();
+			final AssetUser _assetUser = new AssetUser();
+			final AssetUserPK _pk = new AssetUserPK();
 			_pk.setAssetId(_asset.getAssetId());
 			_pk.setUserId(u.getUserId());
 			_assetUser.setActive("A");

@@ -14,25 +14,25 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "ASSETS_USER")
-@NamedQuery(name = "AssetsUser.findAll", query = "SELECT a FROM AssetsUser a")
-public class AssetsUser implements Serializable {
+@Table(name = "ASSET_USER")
+@NamedQuery(name = "AssetUsers.findAll", query = "SELECT a FROM AssetUser a")
+public class AssetUser implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private AssetsUserPK id;
+	private AssetUserPK id;
 	private String active;
 	private Timestamp updateDt;
 	private String updateUser;
 	private AssetOwnerType userType;
 
-	public AssetsUser() {
+	public AssetUser() {
 	}
 
 	@EmbeddedId
-	public AssetsUserPK getId() {
+	public AssetUserPK getId() {
 		return this.id;
 	}
 
-	public void setId(final AssetsUserPK id) {
+	public void setId(final AssetUserPK id) {
 		this.id = id;
 	}
 

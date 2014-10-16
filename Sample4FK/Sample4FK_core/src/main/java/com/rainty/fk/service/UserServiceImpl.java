@@ -12,8 +12,8 @@ import org.springframework.util.Assert;
 
 import com.rainty.fk.entity.Asset;
 import com.rainty.fk.entity.AssetOwnerType;
-import com.rainty.fk.entity.AssetsUser;
-import com.rainty.fk.entity.AssetsUserPK;
+import com.rainty.fk.entity.AssetUser;
+import com.rainty.fk.entity.AssetUserPK;
 import com.rainty.fk.entity.UserInfo;
 import com.rainty.fk.repository.AssetRepository;
 import com.rainty.fk.repository.AssetUserRepository;
@@ -70,10 +70,10 @@ public class UserServiceImpl implements UserService {
 		
 		// persistent user asset relation 
 		for (Asset _asset: _assets) {
-			AssetsUserPK id = new AssetsUserPK();
+			AssetUserPK id = new AssetUserPK();
 			id.setAssetId(_asset.getAssetId());
 			id.setUserId(_user.getUserId());
-			AssetsUser assetsUser = new AssetsUser();
+			AssetUser assetsUser = new AssetUser();
 			assetsUser.setId(id);
 			assetsUser.setActive("Y");
 			assetsUser.setUserType(type);

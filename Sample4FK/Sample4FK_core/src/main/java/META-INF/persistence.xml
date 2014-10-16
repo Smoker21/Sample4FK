@@ -4,8 +4,8 @@
 		<class>com.rainty.fk.entity.Asset</class>
 		<class>com.rainty.fk.entity.AssetsHistory</class>
 		<class>com.rainty.fk.entity.AssetsHistoryPK</class>
-		<class>com.rainty.fk.entity.AssetsUser</class>
-		<class>com.rainty.fk.entity.AssetsUserPK</class>
+		<class>com.rainty.fk.entity.AssetUser</class>
+		<class>com.rainty.fk.entity.AssetUserPK</class>
 		<class>com.rainty.fk.entity.AssetType</class>
 		<class>com.rainty.fk.entity.AudtiTrack</class>
 		<class>com.rainty.fk.entity.Comment</class>
