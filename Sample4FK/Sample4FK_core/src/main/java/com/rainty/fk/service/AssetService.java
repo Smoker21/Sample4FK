@@ -8,6 +8,7 @@ import com.rainty.fk.entity.UserInfo;
 
 public interface AssetService {
 	Asset addAssetUser(Asset asset, List<UserInfo> users, AssetOwnerType type);
+	Asset addAssetUsers(Asset asset, List<String> userAcnts, AssetOwnerType type); 
 	Asset save(Asset asset,String updater);
 	List<Asset> save(List<Asset> asset, String updater);	
 }

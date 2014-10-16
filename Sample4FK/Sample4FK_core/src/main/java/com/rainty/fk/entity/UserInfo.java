@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.persistence.annotations.UuidGenerator;
 
 /**
@@ -28,6 +29,7 @@ import org.eclipse.persistence.annotations.UuidGenerator;
 @Table(name = "USER_INFO")
 @NamedQuery(name = "UserInfo.findAll", query = "SELECT u FROM UserInfo u")
 public class UserInfo implements Serializable {
+		
 	private static final long serialVersionUID = 1L;
 	private Long userId;
 	private String location;
@@ -155,6 +157,26 @@ public class UserInfo implements Serializable {
 		this.userAssets = userAssets;
 	}
 
+	/**
+	 * Check necessary fields. (userId, userAcnt, userDept, userName, userOrg)
+	 * @return
+	 */
+	public boolean isValidUser() {
+		if (this.userId == null) return false; 
+		return isValidUserExceptKey(); 
+	}
+	
+	/**
+	 * Check necessary Fields except userId. (pre-persist check)
+	 * @return
+	 */
+	public boolean isValidUserExceptKey() {
+		if (this.userId == 0) return false; 
+		if (StringUtils.isAnyBlank(this.userAcnt,this.userDept,this.userName,this.userOrg)) return false; 
+		return true; 
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

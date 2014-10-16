@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ AssetRepositoryTest.class, UserInfoRepositoryTest.class })
+@SuiteClasses({ AssetRepositoryTest.class, UserInfoRepositoryTest.class, AssetUserRepositoryTest.class })
 public class AllTests {
 
 }
