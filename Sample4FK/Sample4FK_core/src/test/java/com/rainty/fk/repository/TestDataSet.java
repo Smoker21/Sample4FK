@@ -2,13 +2,16 @@ package com.rainty.fk.repository;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.rainty.fk.entity.Asset;
 import com.rainty.fk.entity.AssetOwnerType;
-import com.rainty.fk.entity.AssetsHistory;
 import com.rainty.fk.entity.AssetUser;
 import com.rainty.fk.entity.AssetUserPK;
+import com.rainty.fk.entity.AssetsHistory;
+import com.rainty.fk.entity.UserInfo;
 
 public class TestDataSet {
 	public static final List<Asset> getAssets() {
@@ -23,6 +26,36 @@ public class TestDataSet {
 		return assets;
 	}
 
+	public static final List<UserInfo> getUserInfos() {
+
+		final UserInfo _u1 = new UserInfo.Builder().userAcnt("USER1").location("LOC1").userDept("DEPT1").userOrg("001")
+				.secretaryAcnt("SEC1").supervisor("SUPER1").updateDt(new Timestamp(System.nanoTime())).onboardDt(new Date())
+				.updateUser("TEST1").userName("員工1").build();
+		final UserInfo _u2 = new UserInfo.Builder().userAcnt("USER2").location("LOC1").userDept("DEPT1").userOrg("001")
+				.secretaryAcnt("SEC1").supervisor("SUPER1").updateDt(new Timestamp(System.nanoTime())).onboardDt(new Date())
+				.updateUser("TEST1").userName("員工2").build();
+		final UserInfo _u3 = new UserInfo.Builder().userAcnt("SUPER1").location("LOC1").userDept("DEPT1").userOrg("001")
+				.secretaryAcnt("SEC1").updateDt(new Timestamp(System.nanoTime())).onboardDt(new Date()).updateUser("TEST1")
+				.userName("老闆1").build();
+		final UserInfo _u4 = new UserInfo.Builder().userAcnt("USER3").location("LOC2").userDept("DEPT2").userOrg("002")
+				.secretaryAcnt("SEC2").supervisor("SUPER2").updateDt(new Timestamp(System.nanoTime())).onboardDt(new Date())
+				.updateUser("TEST1").userName("員工3").build();
+		final UserInfo _u5 = new UserInfo.Builder().userAcnt("USER4").location("LOC2").userDept("DEPT2").userOrg("002")
+				.secretaryAcnt("SEC2").supervisor("SUPER2").updateDt(new Timestamp(System.nanoTime())).onboardDt(new Date())
+				.updateUser("TEST1").userName("員工4").build();
+		final UserInfo _u6 = new UserInfo.Builder().userAcnt("SUPER2").location("LOC1").userDept("DEPT1").userOrg("001")
+				.secretaryAcnt("SEC1").updateDt(new Timestamp(System.nanoTime())).onboardDt(new Date()).updateUser("TEST1")
+				.userName("老闆2").build();
+		final LinkedList<UserInfo> users = new LinkedList<UserInfo>();
+		users.add(_u1);
+		users.add(_u2);
+		users.add(_u3);
+		users.add(_u4);
+		users.add(_u5);
+		users.add(_u6);
+		return users;
+	}
+
 	public static final List<AssetsHistory> getHistory() {
 		final List<Asset> assets = TestDataSet.getAssets();
 		final ArrayList<AssetsHistory> assetsHistory = new ArrayList<AssetsHistory>();
@@ -32,7 +65,7 @@ public class TestDataSet {
 		return assetsHistory;
 	}
 
-	public static final List<AssetUser> getAssetsUser() {
+	public static final List<AssetUser> getAssetUsers() {
 		final List<AssetUser> assetUsers = new ArrayList<AssetUser>();
 		final AssetUserPK k1 = new AssetUserPK();
 		k1.setUserId(1L);

@@ -18,13 +18,14 @@ import org.springframework.util.Assert;
 
 import com.rainty.fk.entity.Asset;
 import com.rainty.fk.entity.AssetOwnerType;
-import com.rainty.fk.entity.AssetsHistory;
 import com.rainty.fk.entity.AssetUser;
 import com.rainty.fk.entity.AssetUserPK;
+import com.rainty.fk.entity.AssetsHistory;
 import com.rainty.fk.entity.UserInfo;
 import com.rainty.fk.repository.AssetRepository;
 import com.rainty.fk.repository.AssetUserRepository;
 import com.rainty.fk.repository.HistoryRepository;
+import com.rainty.fk.repository.UserInfoRepository;
 
 @Service("assetService")
 public class AssetServiceImpl implements AssetService {
@@ -39,9 +40,13 @@ public class AssetServiceImpl implements AssetService {
 	@Autowired
 	AssetUserRepository assetUserRepo;
 
+	@Autowired
+	UserInfoRepository userInfoRepo;
+
 	@PersistenceContext
 	EntityManager em;
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Asset addAssetUser(final Asset asset, final List<UserInfo> users, final AssetOwnerType type, final String updater) {
 		// check parameter first
@@ -65,23 +70,23 @@ public class AssetServiceImpl implements AssetService {
 		checkUserList(users);
 		final Timestamp tranDate = new Timestamp(System.nanoTime());
 		// save asset and get jpa managed object
-		final Asset _asset = this.save(asset, updater);
+		final Asset theAsset = this.save(asset, updater);
 		// create many-to-many reference table key
 		final ArrayList<AssetUser> assetUsers = new ArrayList<AssetUser>();
-		for (final UserInfo u : users) {
+		for (final UserInfo _userInfo : users) {
 			final AssetUser _assetUser = new AssetUser();
 			final AssetUserPK _pk = new AssetUserPK();
-			_pk.setAssetId(_asset.getAssetId());
-			_pk.setUserId(u.getUserId());
+			_pk.setAssetId(theAsset.getAssetId());
+			_pk.setUserId(_userInfo.getUserId());
 			_assetUser.setActive("A");
 			_assetUser.setId(_pk);
 			_assetUser.setUpdateDt(tranDate);
 			_assetUser.setUpdateUser(updater);
 		}
 		assetUserRepo.save(assetUsers);
-		assetUserRepo.findByAssetId(_asset.getAssetId());
-		_asset.setAssetUsers(assetUsers);
-		return _asset;
+		assetUserRepo.findByAssetId(theAsset.getAssetId());
+		theAsset.setAssetUsers(assetUsers);
+		return theAsset;
 	}
 
 	private void checkUserList(final List<UserInfo> users) {
@@ -117,18 +122,17 @@ public class AssetServiceImpl implements AssetService {
 		final Timestamp transDate = new Timestamp(System.nanoTime());
 		final LinkedList<Asset> _assets = new LinkedList<Asset>();
 		final LinkedList<AssetsHistory> _histories = new LinkedList<AssetsHistory>();
-		for (final Asset asset : assets) {
-			asset.setUpdateDt(transDate);
-			asset.setUpdateUser(updater);
-			_assets.add(asset);
+		for (final Asset _a : assets) {
+			_a.setUpdateDt(transDate);
+			_a.setUpdateUser(updater);
+			_assets.add(_a);
 		}
 
 		final List<Asset> result = com.rainsoft.util.CollectionUtils.makeList(assetRepo.save(_assets));
 		logger.info("Save assets successful");
-		for (final Asset asset : result) {
-			asset.setDescription("just for fun");
-			final AssetsHistory _h = new AssetsHistory(asset);
-			_histories.add(_h);
+		for (final Asset _a : result) {
+			final AssetsHistory _history = new AssetsHistory(_a);
+			_histories.add(_history);
 		}
 		historyRepo.save(_histories);
 		logger.info("Save history successful");
@@ -136,15 +140,19 @@ public class AssetServiceImpl implements AssetService {
 	}
 
 	@Override
-	public Asset addAssetUser(final Asset asset, final List<UserInfo> users, final AssetOwnerType type) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Asset addAssetUsers(final Asset asset, final List<String> userAcnts, final AssetOwnerType type, final String updater) {
+		final List<UserInfo> userInfos = new LinkedList<UserInfo>();
+		for (final String userAcnt : userAcnts) {
+			final UserInfo _u = userInfoRepo.findByUserAcnt(userAcnt);
+			userInfos.add(_u);
+		}
+		return this.addAssetUser(asset, userInfos, type, updater);
 	}
 
 	@Override
-	public Asset addAssetUsers(final Asset asset, final List<String> userAcnts, final AssetOwnerType type) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional(readOnly = true)
+	public List<Asset> findAll() {
+		return com.rainsoft.util.CollectionUtils.makeList(assetRepo.findAll());
 	}
-
 }

@@ -1,9 +1,9 @@
 package com.rainty.fk.repository;
 
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -26,26 +26,29 @@ public class HistoryRepositoryTest {
 	HistoryRepository historyRepo;
 
 	@Autowired
-	AssetRepository assetRepo; 
-	
+	AssetRepository assetRepo;
+
 	@Test
 	public void testSaveS() {
-		Iterable<Asset> assets = assetRepo.save(TestDataSet.getAssets());
-		ArrayList<AssetsHistory> historys = new ArrayList<AssetsHistory>();
-		for (Asset a : assets) {
+		final Iterable<Asset> assets = assetRepo.save(TestDataSet.getAssets());
+		final ArrayList<AssetsHistory> historys = new ArrayList<AssetsHistory>();
+		for (final Asset a : assets) {
 			historys.add(new AssetsHistory(a));
 		}
 		historyRepo.save(historys);
-		ArrayList<AssetsHistory> _historys = new ArrayList<AssetsHistory>();
-		for (AssetsHistory h : historyRepo.findAll()) {
+		final ArrayList<AssetsHistory> _historys = new ArrayList<AssetsHistory>();
+		for (final AssetsHistory h : historyRepo.findAll()) {
 			_historys.add(h);
-			logger.info("After created: {} ",h);
+			logger.info("After created: {} ", h);
 		}
+		Assert.assertEquals(2, historyRepo.count());
+		logger.info("History Repo test: {} ", historyRepo.findAll());
+		Assert.assertEquals(2, historyRepo.count());
 	}
 
-	@Test
-	public void testFindAll() {
-		fail("Not yet implemented");
+	@After
+	public void cleanData() {
+		historyRepo.deleteAll();
 	}
 
 }

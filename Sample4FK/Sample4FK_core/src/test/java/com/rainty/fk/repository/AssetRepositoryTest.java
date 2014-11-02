@@ -1,9 +1,10 @@
 package com.rainty.fk.repository;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,30 +29,24 @@ public class AssetRepositoryTest {
 
 	@Before
 	public void setUp() {
-		final Asset _a1 = new Asset.Builder().assetName("EH310269").assetType("PC").location("FAB7").updateUser("TEST")
-				.description("demo description").build();
-		final Asset _a2 = new Asset.Builder().assetName("NH920122").assetType("NoteBook").location("FAB7").updateUser("TEST")
-				.description("demo description").build();
-		assets = new ArrayList<Asset>();
-		assets.add(_a1);
-		assets.add(_a2);
 	}
 
 	@Test
 	public void testSaveS() {
-		repository.save(assets);
+		repository.save(TestDataSet.getAssets());
 		final long count = repository.count();
-		// Assert.assertEquals(2l, count);
-
-	}
-
-	@Test
-	public void testFindAll() {
+		Assert.assertEquals(2l, count);
 		final Iterable<Asset> assets = repository.findAll();
-		for (final Iterator iterator = this.assets.iterator(); iterator.hasNext();) {
+		for (final Iterator iterator = assets.iterator(); iterator.hasNext();) {
 			final Asset asset = (Asset) iterator.next();
 			logger.info("find asset: {}", asset);
 		}
+		Assert.assertEquals(2l, repository.count());
+	}
+
+	@After
+	public void clean() {
+		repository.deleteAll();
 	}
 
 }

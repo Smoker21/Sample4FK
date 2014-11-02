@@ -16,14 +16,14 @@ import javax.persistence.Transient;
 
 /**
  * The persistent class for the ASSETS database table.
- * 
+ *
  */
 @Entity
 @Table(name = "ASSETS")
 @NamedQuery(name = "Asset.findAll", query = "SELECT a FROM Asset a")
 public class Asset implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1709230324579283520L;
 	private Long assetId;
@@ -46,7 +46,7 @@ public class Asset implements Serializable {
 		return this.assetId;
 	}
 
-	public void setAssetId(Long assetId) {
+	public void setAssetId(final Long assetId) {
 		this.assetId = assetId;
 	}
 
@@ -55,7 +55,7 @@ public class Asset implements Serializable {
 		return this.assetName;
 	}
 
-	public void setAssetName(String assetName) {
+	public void setAssetName(final String assetName) {
 		this.assetName = assetName;
 	}
 
@@ -64,7 +64,7 @@ public class Asset implements Serializable {
 		return this.assetType;
 	}
 
-	public void setAssetType(String assetType) {
+	public void setAssetType(final String assetType) {
 		this.assetType = assetType;
 	}
 
@@ -72,7 +72,7 @@ public class Asset implements Serializable {
 		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -80,7 +80,7 @@ public class Asset implements Serializable {
 		return this.location;
 	}
 
-	public void setLocation(String location) {
+	public void setLocation(final String location) {
 		this.location = location;
 	}
 
@@ -89,7 +89,7 @@ public class Asset implements Serializable {
 		return this.updateDt;
 	}
 
-	public void setUpdateDt(Timestamp updateDt) {
+	public void setUpdateDt(final Timestamp updateDt) {
 		this.updateDt = updateDt;
 	}
 
@@ -98,7 +98,7 @@ public class Asset implements Serializable {
 		return this.updateUser;
 	}
 
-	public void setUpdateUser(String updateUser) {
+	public void setUpdateUser(final String updateUser) {
 		this.updateUser = updateUser;
 	}
 
@@ -106,42 +106,54 @@ public class Asset implements Serializable {
 	public List<AssetUser> getAssetUsers() {
 		return this.assetUsers;
 	}
-	
-	public void setAssetUsers(List<AssetUser> users) {
-		this.assetUsers = users; 
+
+	public void setAssetUsers(final List<AssetUser> users) {
+		this.assetUsers = users;
 	}
-	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((assetId == null) ? 0 : assetId.hashCode());
-		result = prime * result
-				+ ((assetName == null) ? 0 : assetName.hashCode());
+		result = (prime * result) + ((assetId == null) ? 0 : assetId.hashCode());
+		result = (prime * result) + ((assetName == null) ? 0 : assetName.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		Asset other = (Asset) obj;
+		}
+		final Asset other = (Asset) obj;
 		if (assetId == null) {
-			if (other.assetId != null)
+			if (other.assetId != null) {
 				return false;
-		} else if (!assetId.equals(other.assetId))
+			}
+		} else if (!assetId.equals(other.assetId)) {
 			return false;
+		}
 		if (assetName == null) {
-			if (other.assetName != null)
+			if (other.assetName != null) {
 				return false;
-		} else if (!assetName.equals(other.assetName))
+			}
+		} else if (!assetName.equals(other.assetName)) {
 			return false;
+		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Asset [assetId=" + assetId + ", assetName=" + assetName + ", assetType=" + assetType + ", description="
+				+ description + ", location=" + location + ", updateDt=" + updateDt + ", updateUser=" + updateUser
+				+ ", assetUsers=" + assetUsers + "]";
 	}
 
 	public static class Builder {
@@ -153,37 +165,37 @@ public class Asset implements Serializable {
 		private String updateUser;
 		private List<AssetUser> assetUsers;
 
-		public Builder assetName(String assetName) {
+		public Builder assetName(final String assetName) {
 			this.assetName = assetName;
 			return this;
 		}
 
-		public Builder assetType(String assetType) {
+		public Builder assetType(final String assetType) {
 			this.assetType = assetType;
 			return this;
 		}
 
-		public Builder description(String description) {
+		public Builder description(final String description) {
 			this.description = description;
 			return this;
 		}
 
-		public Builder location(String location) {
+		public Builder location(final String location) {
 			this.location = location;
 			return this;
 		}
 
-		public Builder updateDt(Timestamp updateDt) {
+		public Builder updateDt(final Timestamp updateDt) {
 			this.updateDt = updateDt;
 			return this;
 		}
 
-		public Builder updateUser(String updateUser) {
+		public Builder updateUser(final String updateUser) {
 			this.updateUser = updateUser;
 			return this;
 		}
 
-		public Builder assetsUsers(List<AssetUser> assetUsers) {
+		public Builder assetsUsers(final List<AssetUser> assetUsers) {
 			this.assetUsers = assetUsers;
 			return this;
 		}
@@ -193,7 +205,7 @@ public class Asset implements Serializable {
 		}
 	}
 
-	private Asset(Builder builder) {
+	private Asset(final Builder builder) {
 		this.assetName = builder.assetName;
 		this.assetType = builder.assetType;
 		this.description = builder.description;
