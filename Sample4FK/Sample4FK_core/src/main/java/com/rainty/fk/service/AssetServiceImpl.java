@@ -57,14 +57,10 @@ public class AssetServiceImpl implements AssetService {
 				"addAssetUser(Asset asset, List<UserInfo> users, AssetOwnerType type) users cannot contain null");
 		/**
 		 *
-		 * don't use this kind of write method. Check it, if errors, just throw
-		 * runtime exception. Error should use error handle. Logic switch use
-		 * for normal business rule.
+		 * Don't use this kind of approach.
 		 *
 		 * if (checkUserList(users) { rest operations.. } else { throw
 		 * exception. }
-		 *
-		 *
 		 *
 		 */
 		checkUserList(users);

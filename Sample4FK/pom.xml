@@ -58,5 +58,7 @@
 		<module>Sample4FK_core</module>
 		<module>Sample4FK_utility</module>
     <module>Sample4FK_Web</module>
+    <module>Sample4FK_Rest</module>
+    <module>servlet</module>
   </modules>
 </project>
